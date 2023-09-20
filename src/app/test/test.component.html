@@ -1,0 +1,38 @@
+
+<form>
+    <p>
+        <mat-form-field>
+            <mat-label>Test step</mat-label>
+            <input matInput name="name" type="text" [(ngModel)]="name" (ngModelChange)="changed($event)" >
+        </mat-form-field>
+        <mat-form-field class="full-width">
+            <mat-label>Description</mat-label>
+            <textarea matInput name="description" [(ngModel)]="description" (ngModelChange)="changed($event)" ></textarea>
+        </mat-form-field>
+        <mat-form-field >
+            <mat-label>Method</mat-label>
+            <mat-select [(ngModel)]="method" name="method" (ngModelChange)="changed($event)" >
+                <mat-option *ngFor="let method of methods" [value]="method.value">
+                {{method.viewValue}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field class="full-width">
+            <mat-label>URL</mat-label>
+            <input matInput name="url" type="text" [(ngModel)]="url" (ngModelChange)="changed($event)" >
+        </mat-form-field>
+        <mat-form-field class="full-width" *ngIf="method=='get'">
+            <mat-label>Parameters</mat-label>
+            <input matInput name="parameters" type="text" [(ngModel)]="parameters" (ngModelChange)="changed($event)" >
+        </mat-form-field>
+        <mat-form-field class="full-width" *ngIf="method=='post'">
+            <mat-label>Body</mat-label>
+            <textarea matInput name="body" [(ngModel)]="body" (ngModelChange)="changed($event)" ></textarea>
+        </mat-form-field>
+    </p>
+    <button mat-stroked-button [disabled]="saved" color="primary" (click)="save()">Save</button>
+    <button mat-stroked-button color="warn" (click)="revert()">Reset</button>
+    <button mat-stroked-button [disabled]="!saved" color="primary" (click)="run()">Run</button>
+</form>
+<hr/>
+<pre>{{response}}</pre>
